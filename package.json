@@ -1,0 +1,27 @@
+{
+  "name": "crf",
+  "version": "0.0.1",
+  "description": "biofarma patient statistics",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "6.2.2",
+    "npm": "3.9.5"
+  },
+  "keywords": [
+    "health"
+  ],
+  "author": "staticbass",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.5.9",
+    "passport": "^0.3.2",
+    "serve-static": "^1.11.1",
+    "winston": "^2.2.0"
+  }
+}
