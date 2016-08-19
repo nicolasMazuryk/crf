@@ -4,7 +4,8 @@
   "description": "biofarma patient statistics",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env NODE_ENV=production node server",
+    "dev": "cross-env NODE_ENV=development nodemon server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
@@ -14,14 +15,20 @@
   "keywords": [
     "health"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/staticbass/crf.git"
+  },
   "author": "staticbass",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cross-env": "^2.0.0",
     "express": "^4.14.0",
     "mongoose": "^4.5.9",
     "passport": "^0.3.2",
     "serve-static": "^1.11.1",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "winston-request-logger": "^1.0.7"
   }
 }
