@@ -1,0 +1,49 @@
+{
+  "templateCache": [
+    "client/app/shared/layout/layout.html",
+    "client/app/shared/homepage/homepage.html",
+    "client/app/shared/registration/registration.html",
+    "client/app/shared/404/404.html",
+    "client/app/components/products/product.tpl.html"
+  ],
+  "scripts": {
+    "src": [
+      "client/app/**/*module.js",
+      "client/app/**/*.js"
+    ],
+    "vendor": [
+      "node_modules/jquery/dist/jquery.js",
+      "node_modules/angular/angular.js",
+      "node_modules/angular-ui-router/release/angular-ui-router.js",
+      "node_modules/materialize-css/dist/js/materialize.js"
+    ],
+    "dest": "./public/js"
+  },
+  "html": {
+    "src": "client/*.html",
+    "templates": "client/app/**/*.html",
+    "dest_templates": "public/js",
+    "dest": "./public"
+  },
+  "css": {
+    "vendor": [
+      "node_modules/materialize-css/dist/css/materialize.css"
+    ],
+    "dest": "./public/styles"
+  },
+  "sass": {
+    "src": [
+      "client/assets/styles/styles.scss",
+      "client/assets/styles/**/*.scss"
+    ],
+    "dest": "./public/styles"
+  },
+  "img": {
+    "src": "client/assets/images/*",
+    "dest": "./public/images"
+  },
+  "font": {
+    "src": "node_modules/materialize-css/dist/font/**/*",
+    "dest": "./public/fonts"
+  }
+}
