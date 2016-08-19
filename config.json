@@ -1,9 +1,9 @@
 {
-  "dev": {
+  "development": {
     "host": "http://localhost",
     "port": "6000",
     "public": "./public",
     "app": "./app",
-    "db_url": "mongo://localhost/crf"
+    "db_url": "mongodb://localhost/crf"
   }
 }
