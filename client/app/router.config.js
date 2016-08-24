@@ -11,14 +11,13 @@ function routerConfig($stateProvider, $urlRouterProvider) {
 
     $stateProvider
         .state('default', {
-            url: '/',
             abstract: true,
             templateProvider: ($templateCache) => {
                 return $templateCache.get('layout.html');
             }
         })
         .state('default.homepage', {
-            url: '?q',
+            url: '/',
             controller: 'homepage.controller',
             controllerAs: 'vm',
             templateProvider: ($templateCache) => {
@@ -26,7 +25,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             }
         })
         .state('default.login', {
-            url: 'login',
+            url: '/login',
             controller: 'login.controller',
             controllerAs: 'vm',
             templateProvider: ($templateCache) => {
@@ -34,7 +33,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             }
         })
         .state('default.404', {
-            url: '404',
+            url: '/404',
             templateProvider: ($templateCache) => {
                 return $templateCache.get('404.html');
             }

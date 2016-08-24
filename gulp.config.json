@@ -6,6 +6,7 @@
     "client/app/shared/404/404.html"
   ],
   "scripts": {
+    "entry": "./client/app/app.module.js",
     "src": [
       "client/app/**/*module.js",
       "client/app/**/*.js"
@@ -32,17 +33,36 @@
   },
   "sass": {
     "src": [
-      "client/assets/styles/styles.scss",
-      "client/assets/styles/**/*.scss"
+      "client/assets/styles/styles.scss"
     ],
     "dest": "./public/styles"
   },
   "img": {
-    "src": "client/assets/images/*",
+    "src": [
+      "client/assets/images/**/*",
+      "!client/assets/images/sprites/**/*"
+    ],
+    "sprite": {
+      "src": [
+        "client/assets/images/sprites/**/*.png"
+      ],
+      "img": "client/assets/images",
+      "css": "client/assets/styles/utils"
+    },
     "dest": "./public/images"
   },
   "font": {
-    "src": "node_modules/materialize-css/dist/font/**/*",
+    "src": [
+      "node_modules/materialize-css/dist/fonts/**/*",
+      "client/assets/fonts/**/*"
+    ],
     "dest": "./public/fonts"
-  }
+  },
+  "clean": [
+    "./public/js/vendor.js",
+    "./public/js/templates.js",
+    "./public/js/bundle.js",
+    "./public/styles/styles.css",
+    "./public/styles/vendor.css"
+  ]
 }

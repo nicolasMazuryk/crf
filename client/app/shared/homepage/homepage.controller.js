@@ -4,7 +4,7 @@ class homepageController {
         this.name = "nicolas mazuryk";
 
         console.log('name', this.name);
-        console.log('homepage____Controller', $scope);
+        console.log('homepage_Controller', $scope);
     }
 }
 
