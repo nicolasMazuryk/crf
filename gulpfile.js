@@ -1,21 +1,19 @@
-var gulp = require('gulp'),
-    $ = require('gulp-load-plugins')({lazy: true}),
-    config = require('./gulp.config.json'),
-    babelify = require('babelify'),
-    browserify = require('browserify'),
-    vinylSourceStream = require('vinyl-source-stream'),
-    vinylBuffer = require('vinyl-buffer'),
-    runSequence = require('run-sequence'),
-    autoprefixer = require('autoprefixer'),
-    browserSync = require('browser-sync').create(),
-    historyApiFallback = require('connect-history-api-fallback'),
-    argv = require('yargs').argv,
-    prod = argv.production;
-
-/* @TODO production annotation not working */
+const   gulp = require('gulp'),
+        $ = require('gulp-load-plugins')({lazy: true}),
+        babelify = require('babelify'),
+        browserify = require('browserify'),
+        vinylSourceStream = require('vinyl-source-stream'),
+        vinylBuffer = require('vinyl-buffer'),
+        runSequence = require('run-sequence'),
+        autoprefixer = require('autoprefixer'),
+        browserSync = require('browser-sync').create(),
+        historyApiFallback = require('connect-history-api-fallback'),
+        config = require('./gulp.config.json'),
+        argv = require('yargs').argv,
+        prod = argv.production;
 
 gulp.task('js', () => {
-    var sources = browserify({
+    let sources = browserify({
         entries: config.scripts.entry,
         debug: true // Build source maps
     })
@@ -27,10 +25,10 @@ gulp.task('js', () => {
         .pipe(vinylSourceStream(config.scripts.src[1]))
         .pipe(vinylBuffer())
         .pipe($.if(!prod, $.sourcemaps.init({
-            loadMaps: true // Load the sourcemaps browserify already generated
+            loadMaps: true
         })))
-        .pipe($.ngAnnotate())
         .pipe($.concat('bundle.js'))
+        .pipe($.ngAnnotate())
         .pipe($.if(prod, $.uglify()))
         .pipe($.if(!prod, $.sourcemaps.write('.', {
             includeContent: true
@@ -41,14 +39,14 @@ gulp.task('js', () => {
 });
 
 gulp.task('vendor', () => {
-    gulp.src(config.scripts.vendor)
+    return gulp.src(config.scripts.vendor)
         .pipe($.concat('vendor.js'))
         .pipe($.if(prod, $.uglify()))
         .pipe(gulp.dest(config.scripts.dest))
 });
 
 gulp.task('template', () => {
-    gulp.src(config.templateCache)
+    return gulp.src(config.templateCache)
         .pipe($.angularTemplatecache('templates.js', {
             standalone: true
         }))
@@ -57,7 +55,7 @@ gulp.task('template', () => {
 });
 
 gulp.task('sass', () => {
-    gulp.src(config.sass.src)
+    return gulp.src(config.sass.src)
         .pipe($.if(!prod, $.sourcemaps.init()))
         .pipe($.sass())
         .pipe($.postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
@@ -68,21 +66,24 @@ gulp.task('sass', () => {
 });
 
 gulp.task('vendor-css', () => {
-    gulp.src(config.css.vendor)
+    return gulp.src(config.css.vendor)
         .pipe($.concatCss("vendor.css"))
         .pipe($.postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
         .pipe($.if(prod, $.csso()))
         .pipe(gulp.dest(config.css.dest))
 });
-    /* @TODO useref */
+
 gulp.task('html', () => {
-    gulp.src(config.html.src)
+    return gulp.src(config.html.src)
+        .pipe($.plumber())
+        .pipe($.if(prod, $.useref({
+            searchPath: './public/'
+        })))
         .pipe(gulp.dest(config.html.dest))
 });
 
-//
 gulp.task('images', () => {
-    gulp.src(config.img.src)
+    return gulp.src(config.img.src)
         .pipe($.imagemin({
             progressive: true, //jpg
             optimizationLevel: 1 // png (0-7)
@@ -91,7 +92,7 @@ gulp.task('images', () => {
 });
 
 gulp.task('sprites', () => {
-    var spriteData = gulp.src(config.img.sprite.src)
+    let spriteData = gulp.src(config.img.sprite.src)
         .pipe($.spritesmith({
             imgName: 'sprite.png',
             cssName: '_sprite.scss',
@@ -104,21 +105,23 @@ gulp.task('sprites', () => {
             }
         }));
 
-    spriteData.img.pipe(gulp.dest(config.img.sprite.img));
-    spriteData.css.pipe(gulp.dest(config.img.sprite.css));
+    return spriteData.img.pipe(gulp.dest(config.img.sprite.img)).on('end', () => {
+        spriteData.css.pipe(gulp.dest(config.img.sprite.css));
+    });
 });
 
 gulp.task('font', () => {
-    gulp.src(config.font.src)
+    return gulp.src(config.font.src)
         .pipe(gulp.dest(config.font.dest));
 });
 
 gulp.task('clean', () => {
     return gulp.src(config.clean, {read: false})
-        .pipe($.clean());
+        .pipe($.if(prod, $.clean()));
 });
 
 gulp.task('browser-sync', () => {
+    if (prod) return;
 
     browserSync.init({
         server: {
@@ -134,7 +137,6 @@ gulp.task('browser-sync', () => {
     gulp.watch('./client/*.html', ['html']).on('change', browserSync.reload);
 });
 
-gulp.task('default', ['build', 'browser-sync']);
-gulp.task('build', () => {
-    runSequence('html', 'js', 'template', 'vendor', 'sass', 'vendor-css', 'sprites', 'images', 'font');
+gulp.task('default', () => {
+    runSequence('js', 'template', 'vendor', 'sass', 'vendor-css', 'html', 'sprites', 'images', 'font', 'clean', 'browser-sync');
 });

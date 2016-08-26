@@ -12,6 +12,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
         .state('default', {
             abstract: true,
+            /* @ngInject */
             templateProvider: ($templateCache) => {
                 return $templateCache.get('layout.html');
             }
@@ -20,6 +21,7 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             url: '/',
             controller: 'homepage.controller',
             controllerAs: 'vm',
+            /* @ngInject */
             templateProvider: ($templateCache) => {
                 return $templateCache.get('homepage.html');
             }
@@ -28,12 +30,14 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             url: '/login',
             controller: 'login.controller',
             controllerAs: 'vm',
+            /* @ngInject */
             templateProvider: ($templateCache) => {
                 return $templateCache.get('login.html');
             }
         })
         .state('default.404', {
             url: '/404',
+            /* @ngInject */
             templateProvider: ($templateCache) => {
                 return $templateCache.get('404.html');
             }

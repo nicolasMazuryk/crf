@@ -1,30 +1,34 @@
-<div class="card container">
-    <div class="card-image waves-effect waves-block waves-light">
-        <img class="activator" src="images/office.jpg">
-    </div>
-    <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">Card Title</span>
+<div class="row">
+    <div class="card col m6 l6">
+        <div class="card-content">
+            <span class="card-title grey-text text-darken-4">Welcome to CRF</span>
 
-        <div class="row">
-            <form class="col s12">
-                <div class="row">
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="icon_prefix" type="text" class="validate">
-                        <label for="icon_prefix">First Name</label>
+            <div class="row">
+                <form name="loginForm" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class=""></i>
+                            <input id="user_name"
+                                   type="text"
+                                   class="validate"
+                                   ng-model="vm.user.name">
+                            <label for="user_name">Login</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class=""></i>
+                            <input id="user_pass"
+                                   type="password"
+                                   class="validate"
+                                   ng-model="user.password">
+                            <label for="user_pass">Password</label>
+                        </div>
                     </div>
-                    <div class="input-field col s6">
-                        <i class="material-icons prefix">phone</i>
-                        <input id="icon_telephone" type="tel" class="validate">
-                        <label for="icon_telephone">Telephone</label>
+                    <div class="card-action">
+                        <button class="waves-effect waves-light btn">Login</button>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
         </div>
-
-    </div>
-    <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-        <p>Here is some more information about this product that is only revealed once clicked on.</p>
     </div>
 </div>
