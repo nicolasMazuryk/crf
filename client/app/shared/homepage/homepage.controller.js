@@ -1,10 +1,7 @@
 
 class homepageController {
     constructor($scope, $state) {
-        this.name = "nicolas mazuryk";
-
-        console.log('name', this.name);
-        console.log('homepage_Controller', $scope);
+        console.log('homepageController', $scope);
     }
 }
 

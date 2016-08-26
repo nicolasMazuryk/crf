@@ -42,36 +42,4 @@ function routerConfig($stateProvider, $urlRouterProvider) {
                 return $templateCache.get('404.html');
             }
         });
-
-    //.state('default', {
-    //    //abstract: true,
-    //    url: '/',
-    //    templateProvider: function($templateCache) {
-    //        return $templateCache.get('layout.template.html');
-    //    }
-    //})
-    //.state('default.product', {
-    //    controller: 'product.controller',
-    //    controllerAs: 'vm',
-    //    templateProvider: function($templateCache) {
-    //        return $templateCache.get('product.tpl.html');
-    //    }
-    //})
-    //.state('default.header', {
-    //    //url: 'header',
-    //    data: {
-    //        id: "0637226478",
-    //        cerrier: 'lifecell'
-    //    },
-    //    resolve: {
-    //        inject: function() {
-    //            return window.location.origin;
-    //        }
-    //    },
-    //    controller: 'header.controller',
-    //    controllerAs: 'vm',
-    //    templateProvider: function($templateCache) {
-    //        return $templateCache.get('header.template.html');
-    //    }
-    //})
 }

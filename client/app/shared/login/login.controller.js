@@ -1,8 +1,7 @@
 
 class loginController {
     constructor($q) {
-        console.log('login');
-        console.log($q);
+        console.log('loginController', $q);
     }
 }
 
