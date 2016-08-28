@@ -1,10 +1,10 @@
 
 class loginController {
-    constructor($q) {
-        console.log('loginController', $q);
+    constructor(AuthApiService) {
+        console.log('AuthApiService', AuthApiService);
     }
 }
 
-loginController.$inject = ['$q'];
+loginController.$inject = ['AuthApiService'];
 
 export default loginController;

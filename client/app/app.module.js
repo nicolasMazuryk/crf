@@ -1,18 +1,22 @@
 import './app.router';
+import './shared/api/api.module';
 import './shared/homepage/homepage.module';
 import './shared/login/login.module';
+import config from './../../config.json';
 
 angular.module('app', [
         'app.router',
+        'api',
         'templates',
         'homepage',
         'login'
     ])
-    .config(config);
+    .config(angularConfiguration)
+    .factory('config', config);
 
-config.$inject = ['$locationProvider'];
+angularConfiguration.$inject = ['$locationProvider'];
 
-function config($locationProvider) {
+function angularConfiguration($locationProvider) {
     $locationProvider.html5Mode({
         enabled: true,
         requireBase: false
