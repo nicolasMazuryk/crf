@@ -9,10 +9,14 @@ const
   logger = require('./server/log'),
   winstonRequestLogger = require('winston-request-logger'),
   config = require('./config'),
-  path = require('path')
+  path = require('path'),
+
+  APIRoute = require('./server/routers/api')
 
 const env = process.env.NODE_ENV || 'development'
 const app = express()
+
+mongoose.Promise = global.Promise
 
 app.use(express.static(path.join(__dirname, config[env].public)))
 app.use(bodyParser.urlencoded({extended: true}))
@@ -24,6 +28,8 @@ app.use(winstonRequestLogger.create(logger, {
   'url': ':url[pathname]',
   'responseTime': ':responseTime ms'
 }))
+
+app.use('/api/', APIRoute)
 
 mongoose.connect(config[env].db_url, err => {
   if(err) return logger.error('DB connection error %j', err)
