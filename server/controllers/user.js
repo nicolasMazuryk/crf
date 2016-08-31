@@ -16,9 +16,14 @@ exports.getUsers = function* (req, res) {
 
 exports.postUser = function* (req, res) {
   try {
-    const newUser = new User(req.body)
-    yield newUser.save()
-    return res.json({ payload: newUser })
+    const user = yield User.findOne({ email: req.body.email })
+    if (!user) {
+      const newUser = new User(req.body)
+      yield newUser.hashPassword()
+      yield newUser.save()
+      return res.json({ payload: newUser })
+    }
+    return res.status(400).json({ error: new Error('User already exists') })
   }
   catch (error) {
     return res.status(500).json({ error })
