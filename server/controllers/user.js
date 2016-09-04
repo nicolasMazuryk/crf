@@ -4,17 +4,18 @@
 
 const User = require('../models/user')
 
-exports.getUsers = function* (req, res) {
+exports.getUsers = function* (req, res, next) {
   try {
-    const users = yield User.find({})
+    const users = yield User.find({}, '-salt -password -token')
     return res.json({ payload: users })
   }
   catch (error) {
-    return res.status(500).json({ error })
+    error.status = 500
+    return next(error)
   }
 }
 
-exports.postUser = function* (req, res) {
+exports.postUser = function* (req, res, next) {
   try {
     const user = yield User.findOne({ email: req.body.email })
     if (!user) {
@@ -23,10 +24,13 @@ exports.postUser = function* (req, res) {
       yield newUser.save()
       return res.json({ payload: newUser })
     }
-    return res.status(400).json({ error: new Error('User already exists') })
+    const error = new Error('User already exists')
+    error.status = 400
+    next(error)
   }
   catch (error) {
-    return res.status(500).json({ error })
+    error.status = 500
+    return next(error)
   }
 }
 
@@ -36,6 +40,7 @@ exports.deleteUser = function* (req, res) {
     return res.json({ payload: user })
   }
   catch (error) {
-    return res.status(500).json({ error })
+    error.status = 500
+    next(error)
   }
 }
