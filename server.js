@@ -10,8 +10,10 @@ const
   winstonRequestLogger = require('winston-request-logger'),
   config = require('./config'),
   path = require('path'),
+  passport = require('./server/controllers/auth'),
 
-  APIRoute = require('./server/routers/api')
+  APIRoute = require('./server/routers/api'),
+  authRoute = require('./server/routers/auth')
 
 const env = process.env.NODE_ENV || 'development'
 const app = express()
@@ -28,15 +30,21 @@ app.use(winstonRequestLogger.create(logger, {
   'url': ':url[pathname]',
   'responseTime': ':responseTime ms'
 }))
-
+app.use(passport.initialize())
+app.use(authRoute(passport))
 app.use('/api/', APIRoute)
+app.use((err, req, res, next) => {
+  const { message, stack, status = 500 } = err
+  if (status >= 500) logger.error(err)
+  res.status(status).json({ error: { message, stack } })
+})
 
 mongoose.connect(config[env].db_url, err => {
-  if(err) return logger.error('DB connection error %j', err)
+  if(err) return logger.error(err)
   logger.info('Connected to db: %s', config[env].db_url)
 })
 
 app.listen(config[env].port, err => {
-  if(err) return logger.error('Server start error %j', err)
+  if(err) return logger.error(err)
   logger.info('Server started at %d', config[env].port)
 })
