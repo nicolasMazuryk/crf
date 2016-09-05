@@ -1,0 +1,29 @@
+html, body, .global-wrapper { height: 100%; }
+
+.wrapper {
+  height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+header, footer {
+  width: 100%;
+}
+
+header {
+  background: rgba(0,0, 250, .6);
+}
+
+footer {
+  background: rgba(0,250, 250, .6);
+}
+
+main {
+  flex: 1;
+}
+
+.layout {
+  display: flex;
+  flex-flow: column nowrap;
+}
