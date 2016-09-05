@@ -4,15 +4,13 @@ class UserApiService {
         this.User = $resource(`${API.URL}/api/users/:id`, {id: '@id'}, {
             'get': {
                 method: 'GET',
-                headers: 'token'
+                isArray: true
             },
             'post': {
-                method: 'POST',
-                headers: 'token'
+                method: 'POST'
             },
             'delete': {
-                method: 'DELETE',
-                headers: 'token'
+                method: 'DELETE'
             }
         })
     }

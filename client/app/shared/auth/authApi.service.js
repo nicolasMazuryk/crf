@@ -3,13 +3,13 @@ class AuthApiService {
     constructor($resource, API, CookieService) {
         this.token = CookieService.get('Auth');
 
-        this.Auth = $resource(`${API.URL}`, {}, {
+        this.Auth = $resource(null, {}, {
             'login': {
-                url: `login`,
+                url: `${API.URL}/login`,
                 method: 'POST'
             },
             'logout': {
-                url: 'logout',
+                url: `${API.URL}/logout`,
                 method: 'GET',
                 headers: CookieService.get('Auth')
             }
