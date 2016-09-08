@@ -2,8 +2,8 @@ import './app.router';
 import './shared/api/api.module';
 import './shared/auth/auth.module';
 import './shared/cookie/cookie.module';
-import './shared/homepage/homepage.module';
-import './shared/login/login.module';
+import './components/homepage/homepage.module';
+import './components/login/login.module';
 import config from './../../config.json';
 
 angular

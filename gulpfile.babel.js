@@ -1,18 +1,23 @@
+require('babel-register');
+
 'use strict';
 
-const   gulp = require('gulp'),
-        $ = require('gulp-load-plugins')({lazy: true}),
-        babelify = require('babelify'),
-        browserify = require('browserify'),
-        vinylSourceStream = require('vinyl-source-stream'),
-        vinylBuffer = require('vinyl-buffer'),
-        runSequence = require('run-sequence'),
-        autoprefixer = require('autoprefixer'),
-        browserSync = require('browser-sync').create(),
-        historyApiFallback = require('connect-history-api-fallback'),
-        config = require('./gulp.config.json'),
-        argv = require('yargs').argv,
-        prod = argv.production;
+import gulp from 'gulp';
+import babelify from 'babelify';
+import browserify from 'browserify';
+import gulpLoadPlugins from 'gulp-load-plugins';
+import vinylSourceStream from 'vinyl-source-stream';
+import browserSync from 'browser-sync';
+import vinylBuffer from 'vinyl-buffer';
+import runSequence from 'run-sequence';
+import autoprefixer from 'autoprefixer';
+import historyApiFallback from 'connect-history-api-fallback';
+import config from './gulp.config.json';
+import { argv } from 'yargs';
+
+const
+    $ = gulpLoadPlugins({lazy: true}),
+    prod = argv.production;
 
 gulp.task('js', () => {
     let sources = browserify({
@@ -59,6 +64,7 @@ gulp.task('template', () => {
 gulp.task('sass', () => {
     return gulp.src(config.sass.src)
         .pipe($.if(!prod, $.sourcemaps.init()))
+        .pipe($.plumber())
         .pipe($.sass())
         .pipe($.postcss([ autoprefixer({ browsers: ['last 2 versions'] }) ]))
         .pipe($.if(prod, $.csso()))

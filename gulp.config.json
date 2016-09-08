@@ -1,9 +1,9 @@
 {
   "templateCache": [
-    "client/app/shared/layout/layout.html",
-    "client/app/shared/homepage/homepage.html",
-    "client/app/shared/login/login.html",
-    "client/app/shared/404/404.html"
+    "client/app/components/layout/layout.html",
+    "client/app/components/homepage/homepage.html",
+    "client/app/components/login/login.html",
+    "client/app/components/404/404.html"
   ],
   "scripts": {
     "entry": "./client/app/app.module.js",

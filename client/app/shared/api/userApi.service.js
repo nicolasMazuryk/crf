@@ -3,8 +3,7 @@ class UserApiService {
     constructor($resource, API) {
         this.User = $resource(`${API.URL}/api/users/:id`, {id: '@id'}, {
             'get': {
-                method: 'GET',
-                isArray: true
+                method: 'GET'
             },
             'post': {
                 method: 'POST'
@@ -15,7 +14,7 @@ class UserApiService {
         })
     }
 
-    getAll() {
+    getUsers() {
         return this.User.get().$promise;
     }
 
@@ -24,7 +23,7 @@ class UserApiService {
     }
 
     remove(id) {
-        return this.User.delete(id).$promise;
+        return this.User.delete({id}).$promise;
     }
 }
 

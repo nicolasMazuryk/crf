@@ -1,4 +1,4 @@
-import homepageController from "./homepage.controller";
+import homepageController from "./homepage.controller.js";
 
 angular
     .module('homepage', [])

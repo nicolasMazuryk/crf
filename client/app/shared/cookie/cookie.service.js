@@ -1,8 +1,6 @@
 
 export default class CookieService {
-    constructor() {
-
-    }
+    constructor() {}
 
     get(key) {
         let matches = document.cookie.match(new RegExp(
@@ -10,14 +8,12 @@ export default class CookieService {
         ));
         return matches ? decodeURIComponent(matches[1]) : undefined;
     }
-    // exp = days
+
     set(key, value, exp) {
         let date = new Date();
-            date = new Date(date.getTime() + 86400000 * exp);
+            date = new Date(date.getTime() + 3600000 * exp);
         document.cookie = `${key}=${value}; path=/; expires=${date.toGMTString()};`
     }
 
-    remove(key) {
-        this.set(key, null, -1);
-    }
+    remove(key) { this.set(key, null, -1) }
 }

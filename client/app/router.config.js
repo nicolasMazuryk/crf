@@ -13,33 +13,25 @@ function routerConfig($stateProvider, $urlRouterProvider) {
         .state('default', {
             abstract: true,
             /* @ngInject */
-            templateProvider: ($templateCache) => {
-                return $templateCache.get('layout.html');
-            }
+            templateProvider: ($templateCache) => $templateCache.get('layout.html')
         })
         .state('default.homepage', {
             url: '/',
             controller: 'homepage.controller',
             controllerAs: 'vm',
             /* @ngInject */
-            templateProvider: ($templateCache) => {
-                return $templateCache.get('homepage.html');
-            }
+            templateProvider: ($templateCache) => $templateCache.get('homepage.html')
         })
         .state('default.login', {
             url: '/login',
             controller: 'login.controller',
             controllerAs: 'vm',
             /* @ngInject */
-            templateProvider: ($templateCache) => {
-                return $templateCache.get('login.html');
-            }
+            templateProvider: ($templateCache) => $templateCache.get('login.html')
         })
         .state('default.404', {
             url: '/404',
             /* @ngInject */
-            templateProvider: ($templateCache) => {
-                return $templateCache.get('404.html');
-            }
+            templateProvider: ($templateCache) => $templateCache.get('404.html')
         });
 }
