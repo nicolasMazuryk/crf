@@ -1,0 +1,7 @@
+.icon {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-aid {@include sprite($ico-aid);}
+.icon-doctor {@include sprite($ico-doctor);}

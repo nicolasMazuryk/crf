@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="card col m6 l6">
+        <div class="card-content">
+            <span class="card-title grey-text text-darken-4">User Management</span>
+
+            <div class="row">
+                <form name="loginForm" ng-submit="vm.createUser()" class="col s12">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class=""></i>
+                            <input id="user_email"
+                                   type="text"
+                                   class="validate"
+                                   ng-model="vm.user.email">
+                            <label for="user_email">Email</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class=""></i>
+                            <input id="user_pass"
+                                   type="password"
+                                   class="validate"
+                                   ng-model="vm.user.password">
+                            <label for="user_pass">Password</label>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="waves-effect waves-light btn">Create user</button>
+                        <button type="button" ng-click="vm.getUsers()" class="waves-effect waves-light btn">Get Users</button>
+                        <button type="button" ng-click="vm.removeUser()" class="waves-effect waves-light btn">Remove User</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
