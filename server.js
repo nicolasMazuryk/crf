@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
 })
 
 app.get('*', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html')
+  res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 mongoose.connect(config[env].db_url, err => {
