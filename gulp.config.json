@@ -5,6 +5,7 @@
     "client/app/components/login/login.html",
     "client/app/components/404/404.html"
   ],
+
   "scripts": {
     "entry": "./client/app/app.module.js",
     "src": [
@@ -20,24 +21,28 @@
     ],
     "dest": "./public/js"
   },
+
   "html": {
     "src": "client/*.html",
     "templates": "client/app/**/*.html",
     "dest_templates": "public/js",
     "dest": "./public"
   },
+
   "css": {
     "vendor": [
       "node_modules/materialize-css/dist/css/materialize.css"
     ],
     "dest": "./public/styles"
   },
+
   "sass": {
     "src": [
       "client/assets/styles/styles.scss"
     ],
     "dest": "./public/styles"
   },
+
   "img": {
     "src": [
       "client/assets/images/**/*",
@@ -52,6 +57,7 @@
     },
     "dest": "./public/images"
   },
+
   "font": {
     "src": [
       "node_modules/materialize-css/dist/fonts/**/*",
@@ -59,6 +65,7 @@
     ],
     "dest": "./public/fonts"
   },
+
   "clean": [
     "./public/js/vendor.js",
     "./public/js/templates.js",

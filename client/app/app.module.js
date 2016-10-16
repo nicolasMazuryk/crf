@@ -1,7 +1,7 @@
 import './app.router';
 import './shared/api/api.module';
 import './shared/auth/auth.module';
-import './shared/cookie/cookie.module';
+import './shared/storage/storage.module';
 import './components/homepage/homepage.module';
 import './components/login/login.module';
 import config from './../../config.json';
@@ -10,8 +10,8 @@ angular
     .module('app', [
         'app.router',
         'api',
-        'auth',
-        'cookie',
+        'authorization',
+        'storage',
         'templates',
         'homepage',
         'login'

@@ -1,9 +1,9 @@
 
 class AuthApiService {
-    constructor($resource, API, CookieService) {
+    constructor($resource, API, StorageService) {
         const
-            token = CookieService.get('Authorization'),
-            authHeader = {Authentication: `Bearer ${token}`};
+            token = StorageService.get('Authorization'),
+            authHeader = {Authorization: `Bearer ${token}`};
 
         this.Auth = $resource(null, {}, {
             'login': {
@@ -27,6 +27,6 @@ class AuthApiService {
     }
 }
 
-AuthApiService.$inject = ['$resource', 'API', 'CookieService'];
+AuthApiService.$inject = ['$resource', 'API', 'StorageService'];
 
 export default AuthApiService;
