@@ -39,6 +39,10 @@ app.use((err, req, res, next) => {
   res.status(status).json({ error: { message, stack } })
 })
 
+app.get('*', (req, res) => {
+  res.sendFile(__dirname + '/public/index.html')
+})
+
 mongoose.connect(config[env].db_url, err => {
   if(err) return logger.error(err)
   logger.info('Connected to db: %s', config[env].db_url)
