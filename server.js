@@ -36,10 +36,11 @@ app.use('/api/', APIRoute)
 app.use((err, req, res, next) => {
   console.log(err)
   const isMongoError = ['ValidationError', 'CastError'].includes(err.name)
-  if (isMongoError || !err.status) {
+  isMongoError && (err.status = 400)
+  if (!err.status) {
     logger.error(err)
   }
-  res.status(err.status || isMongoError ? 400 : 500).json({ error: err })
+  res.status(err.status || 500).json({ error: err })
 })
 
 app.get('*', (req, res) => {
