@@ -8,6 +8,8 @@ const
   crypto = require('crypto'),
   jwt = require('jsonwebtoken')
 
+const roles = ['admin', 'coordinator', 'doctor']
+
 const generateSalt = (bytes = 128) => {
   return new Promise((resolve, reject) => {
     crypto.randomBytes(bytes, (err, salt) => {
@@ -53,7 +55,7 @@ const User = new mongoose.Schema({
   role: {
     type: String,
     validate: {
-      validator: (role) => ['admin', 'coordinator', 'doctor'].includes(role),
+      validator: (role) => roles.includes(role),
       message: '{VALUE} is not a valid user role'
     },
     required: true
