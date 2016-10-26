@@ -5,6 +5,7 @@
 const
   express = require('express'),
   User = require('../controllers/user'),
+  Research = require('../controllers/research'),
   wrap = require('co-express'),
   router = express.Router()
 
@@ -14,5 +15,13 @@ router.route('/users')
 
 router.route('/users/:id')
   .delete(wrap(User.deleteUser))
+
+router.route('/researches')
+  .get(wrap(Research.getResearches))
+  .post(wrap(Research.postResearch))
+
+router.route('/researches/:id')
+  .get(wrap(Research.getResearch))
+  .delete(wrap(Research.deleteResearch))
 
 module.exports = router
