@@ -7,14 +7,19 @@ const
   User = require('../models/user'),
   wrap = require('co-express'),
   BearerStrategy = require('passport-http-bearer').Strategy,
-  LocalStrategy = require('passport-local').Strategy
+  LocalStrategy = require('passport-local').Strategy,
+  errors = require('../error/')
 
 const local = function* (email, password, done) {
   try {
     const user = yield User.findOne({ email })
-    if (!user) return done(new Error('Wrong email or password'))
+    if (!user) {
+      return done(new errors.NotFound('Wrong email or password'))
+    }
     const isValid = yield user.validatePassword(password)
-    if (!isValid) return done(new Error('Wrong email or password'))
+    if (!isValid) {
+      return done(new errors.NotFound('Wrong email or password'))
+    }
     done(null, user)
   }
   catch (error) {
@@ -25,7 +30,9 @@ const local = function* (email, password, done) {
 const bearer = function* (token, done) {
   try {
     const user = yield User.findOne({ token })
-    if (!user) return done(new Error('Unauthorized'))
+    if (!user) {
+      return done(new errors.Unauthorized('Unauthorized'))
+    }
     yield user.validateToken(token)
     return done(null, user)
   }

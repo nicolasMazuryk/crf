@@ -67,10 +67,10 @@ const User = new mongoose.Schema({
 User.methods.hashPassword = function hashPassword() {
   const self = this
   return wrap(function* () {
-    const salt = yield generateSalt()
-    const hash = yield generateHash(self.password, salt)
-    self.salt = salt
-    self.password = hash
+      const salt = yield generateSalt()
+      const hash = yield generateHash(self.password, salt)
+      self.salt = salt
+      self.password = hash
   })()
 }
 

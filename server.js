@@ -34,9 +34,12 @@ app.use(passport.initialize())
 app.use(authRoute(passport))
 app.use('/api/', APIRoute)
 app.use((err, req, res, next) => {
-  const { message, stack, status = 500 } = err
-  if (status >= 500) logger.error(err)
-  res.status(status).json({ error: { message, stack } })
+  console.log(err)
+  const isMongoError = ['ValidationError', 'CastError'].includes(err.name)
+  if (isMongoError || !err.status) {
+    logger.error(err)
+  }
+  res.status(err.status || isMongoError ? 400 : 500).json({ error: err })
 })
 
 app.get('*', (req, res) => {
@@ -44,11 +47,11 @@ app.get('*', (req, res) => {
 })
 
 mongoose.connect(config[env].db_url, err => {
-  if(err) return logger.error(err)
+  if (err) return logger.error(err)
   logger.info('Connected to db: %s', config[env].db_url)
 })
 
 app.listen(config[env].port, err => {
-  if(err) return logger.error(err)
+  if (err) return logger.error(err)
   logger.info('Server started at %d', config[env].port)
 })
