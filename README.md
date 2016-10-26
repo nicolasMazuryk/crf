@@ -8,17 +8,19 @@ POST /api/users {email, password, role} -> {payload: User} <br>
 DELETE /api/users/:id -> {payload: User} <br>
 POST /login {email, password} -> {payload: { token, role } } <br>
 
+GET /api/researches -> {payload: [Research]} <br>
+GET /api/researches/:id -> {payload: Research} <br>
+POST /api/researches {name} -> {payload: Research} <br>
+DELETE /api/researches/:id -> {payload: Research} <br>
+
 **Private:** <br>
 GET /logout -> {payload: true} <br>
 
 **Error responses:** <br>
-```javascript
-{ 
- name = 'Not Found || Bad Request || Unauthorized || ValidationError || CastError',
- status = '404 || 400 || 401 || 400 || 400',
- message
-}
-```
+Error response can return custom error such as `Not Found (404), Bad Request (400), Unauthorized (401)` or mongo error `ValidationError (400), CastError (400)` <br>
+`ValidationError` - required field is missing or the value is not valid <br>
+`CastError` - the record in DB is not found. Thrown when `:id` in url is not valid <br>
+**Mongo errors will be converted into custom errors in future**
 
 For private request send `Authentication: Bearer <TOKEN>` header, where TOKEN is a string returned in /login request payload.<br>
 
