@@ -15,7 +15,7 @@ GET /logout -> {payload: true} <br>
 ```javascript
 { 
  name = 'Not Found || Bad Request || Unauthorized || ValidationError || CastError',
- status = '404 || 400 || 401 || 400 || 400', <br>
+ status = '404 || 400 || 401 || 400 || 400',
  message
 }
 ```
