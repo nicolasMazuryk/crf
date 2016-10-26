@@ -4,9 +4,9 @@ CRF for Biofarma
 ### Available requests
 **Public:** <br/>
 GET /api/users -> {payload: [Users]} <br> 
-POST /api/users {email, password} -> {payload: User} <br>
+POST /api/users {email, password, role} -> {payload: User} <br>
 DELETE /api/users/:id -> {payload: User} <br>
-POST /login {email, password} -> {payload: TOKEN} <br>
+POST /login {email, password} -> {payload: { token, role } } <br>
 
 **Private:** <br/>
 GET /logout -> {payload: true} <br>
@@ -15,5 +15,5 @@ For private request send `Authentication: Bearer <TOKEN>` header, where TOKEN is
 **Note! Request can return wrong error or status code**
 
 ### Create user using this command 
-`curl -X POST -d "email=test&password=test" http://localhost:7000/api/users`
+`curl -X POST -d "email=test&password=test&role=admin" http://localhost:7000/api/users`
 

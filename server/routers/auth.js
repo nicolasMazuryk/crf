@@ -21,7 +21,11 @@ module.exports = (passport) => {
         try {
           yield user.generateToken()
           yield user.save()
-          return res.json({ payload: user.token })
+          const payload = {
+            token: user.token,
+            role: user.role
+          }
+          return res.json({ payload })
         }
         catch (error) {
           error.status = 500

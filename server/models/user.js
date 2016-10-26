@@ -40,7 +40,6 @@ const signToken = (payload) => {
 const verifyToken = (token) => {
   return new Promise((resolve, reject) => {
     jwt.verify(token, 'key_secret', (err, decoded) => {
-      console.log(decoded)
       if (err) return reject(err)
       return resolve(decoded)
     })
@@ -51,6 +50,14 @@ const User = new mongoose.Schema({
 
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
+  role: {
+    type: String,
+    validate: {
+      validator: (role) => ['admin', 'coordinator', 'doctor'].includes(role),
+      message: '{VALUE} is not a valid user role'
+    },
+    required: true
+  },
 
   salt: String,
   token: { type: String, default: '' }
@@ -78,7 +85,7 @@ User.methods.validatePassword = function validatePassword(password) {
 User.methods.generateToken = function generateToken() {
   const self = this
   return wrap(function* () {
-    const token = yield signToken({ id: self._id, email: self.email })
+    const token = yield signToken({ id: self._id, email: self.email, role: self.role })
     self.token = token
     return token
   })()
@@ -87,8 +94,8 @@ User.methods.generateToken = function generateToken() {
 User.methods.validateToken = function validateToken(token) {
   const self = this
   return wrap(function* (token) {
-    const decoded = yield verifyToken(token)
-    return decoded.id === self._id && decoded.email === self.email
+    const { id, email, role } = yield verifyToken(token)
+    return id === self._id && email === self.email && role === self.role
   })(token)
 }
 
