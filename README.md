@@ -11,11 +11,14 @@ POST /login {email, password} -> {payload: { token, role } } <br>
 **Private:** <br>
 GET /logout -> {payload: true} <br>
 
-**Error responses** <br>
-{ name = 'Not Found || Bad Request || Unauthorized || ValidationError || CastError', <br>
+**Error responses:** <br>
+```javascript
+{ 
+ name = 'Not Found || Bad Request || Unauthorized || ValidationError || CastError',
  status = '404 || 400 || 401 || 400 || 400', <br>
- message <br>
-} <br>
+ message
+}
+```
 
 For private request send `Authentication: Bearer <TOKEN>` header, where TOKEN is a string returned in /login request payload.<br>
 
