@@ -34,7 +34,6 @@ app.use(passport.initialize())
 app.use(authRoute(passport))
 app.use('/api/', APIRoute)
 app.use((err, req, res, next) => {
-  console.log(err)
   const isMongoError = ['ValidationError', 'CastError'].includes(err.name)
   isMongoError && (err.status = 400)
   if (!err.status) {
