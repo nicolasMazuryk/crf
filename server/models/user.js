@@ -4,7 +4,7 @@
 
 const
   mongoose = require('mongoose'),
-  wrap = require('co-express'),
+  co = require('co'),
   crypto = require('crypto'),
   jwt = require('jsonwebtoken')
 
@@ -69,37 +69,37 @@ const User = new mongoose.Schema({
 
 User.methods.hashPassword = function hashPassword() {
   const self = this
-  return wrap(function* () {
-      const salt = yield generateSalt()
-      const hash = yield generateHash(self.password, salt)
-      self.salt = salt
-      self.password = hash
-  })()
+  return co(function* () {
+    const salt = yield generateSalt()
+    const hash = yield generateHash(self.password, salt)
+    self.salt = salt
+    self.password = hash
+  })
 }
 
 User.methods.validatePassword = function validatePassword(password) {
   const self = this
-  return wrap(function* (password) {
+  return co(function* () {
     const hash = yield generateHash(password, self.salt)
     return hash === self.password
-  })(password)
+  })
 }
 
 User.methods.generateToken = function generateToken() {
   const self = this
-  return wrap(function* () {
+  return co(function* () {
     const token = yield signToken({ id: self._id, phone: self.phone, role: self.role })
     self.token = token
     return token
-  })()
+  })
 }
 
 User.methods.validateToken = function validateToken(token) {
   const self = this
-  return wrap(function* (token) {
+  return co(function* () {
     const { id, phone, role } = yield verifyToken(token)
     return id === self._id && phone === self.phone && role === self.role
-  })(token)
+  })
 }
 
 module.exports = mongoose.model('User', User)

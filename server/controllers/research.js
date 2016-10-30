@@ -17,7 +17,7 @@ exports.getResearches = function* (req, res, next) {
 }
 
 exports.getResearch = function* (req, res, next) {
-  const id = req.params.id
+  const id = req.params.rid
   try {
     const research = yield Research.findById(id)
     return res.json({ payload: research })
@@ -39,7 +39,7 @@ exports.postResearch = function* (req, res, next) {
 }
 
 exports.deleteResearch = function* (req, res, next) {
-  const id = req.params.id
+  const id = req.params.rid
   try {
     const removed = yield Research.findByIdAndRemove(id)
     res.json({ payload: removed })
