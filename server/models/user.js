@@ -50,8 +50,9 @@ const verifyToken = (token) => {
 
 const User = new mongoose.Schema({
 
-  email: { type: String, unique: true, required: true },
+  phone: { type: Number, unique: true, required: true },
   password: { type: String, required: true },
+  name: { type: String, required: true },
   role: {
     type: String,
     validate: {
@@ -87,7 +88,7 @@ User.methods.validatePassword = function validatePassword(password) {
 User.methods.generateToken = function generateToken() {
   const self = this
   return wrap(function* () {
-    const token = yield signToken({ id: self._id, email: self.email, role: self.role })
+    const token = yield signToken({ id: self._id, phone: self.phone, role: self.role })
     self.token = token
     return token
   })()
@@ -96,8 +97,8 @@ User.methods.generateToken = function generateToken() {
 User.methods.validateToken = function validateToken(token) {
   const self = this
   return wrap(function* (token) {
-    const { id, email, role } = yield verifyToken(token)
-    return id === self._id && email === self.email && role === self.role
+    const { id, phone, role } = yield verifyToken(token)
+    return id === self._id && phone === self.phone && role === self.role
   })(token)
 }
 

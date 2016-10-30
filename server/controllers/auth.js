@@ -10,15 +10,15 @@ const
   LocalStrategy = require('passport-local').Strategy,
   errors = require('../error/')
 
-const local = function* (email, password, done) {
+const local = function* (phone, password, done) {
   try {
-    const user = yield User.findOne({ email })
+    const user = yield User.findOne({ phone })
     if (!user) {
-      return done(new errors.NotFound('Wrong email or password'))
+      return done(new errors.NotFound('Wrong phone or password'))
     }
     const isValid = yield user.validatePassword(password)
     if (!isValid) {
-      return done(new errors.NotFound('Wrong email or password'))
+      return done(new errors.NotFound('Wrong phone or password'))
     }
     done(null, user)
   }
@@ -41,7 +41,7 @@ const bearer = function* (token, done) {
   }
 }
 
-passport.use('local', new LocalStrategy({ usernameField: 'email' }, wrap(local)))
+passport.use('local', new LocalStrategy({ usernameField: 'phone' }, wrap(local)))
 passport.use('bearer', new BearerStrategy(wrap(bearer)))
 
 module.exports = passport
