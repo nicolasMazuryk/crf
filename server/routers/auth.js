@@ -12,19 +12,17 @@ module.exports = (passport) => {
   router.post('/login', (req, res, next) => {
     passport.authenticate('local', { session: false }, (error, user) => {
       if (error) return next(error)
-      if (!user) {
-        const error = new Error('User not found')
-        error.status = 400
-        return next(error)
-      }
       wrap(function* () {
         try {
           yield user.generateToken()
           yield user.save()
-          return res.json({ payload: user.token })
+          const payload = {
+            token: user.token,
+            role: user.role
+          }
+          return res.json({ payload })
         }
         catch (error) {
-          error.status = 500
           return next(error)
         }
       })()
@@ -33,10 +31,7 @@ module.exports = (passport) => {
 
   router.get('/logout', (req, res, next) => {
     passport.authenticate('bearer', { session: false }, (error, user) => {
-      if (error) {
-        error.status = 401
-        return next(error)
-      }
+      if (error) return next(error)
       wrap(function* () {
         try {
           user.token = ''
@@ -44,7 +39,6 @@ module.exports = (passport) => {
           res.json({ payload: true })
         }
         catch (error) {
-          error.status = 500
           return next(error)
         }
       })()

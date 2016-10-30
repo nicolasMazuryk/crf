@@ -3,17 +3,27 @@ CRF for Biofarma
 
 ### Available requests
 **Public:** <br/>
-GET /api/users -> {payload: [Users]} <br> 
-POST /api/users {email, password} -> {payload: User} <br>
+GET /api/users -> {payload: [Users]} <br>
+POST /api/users {email, password, role} -> {payload: User} <br>
 DELETE /api/users/:id -> {payload: User} <br>
-POST /login {email, password} -> {payload: TOKEN} <br>
+POST /login {email, password} -> {payload: { token, role } } <br>
 
-**Private:** <br/>
+GET /api/researches -> {payload: [Research]} <br>
+GET /api/researches/:id -> {payload: Research} <br>
+POST /api/researches {name} -> {payload: Research} <br>
+DELETE /api/researches/:id -> {payload: Research} <br>
+
+**Private:** <br>
 GET /logout -> {payload: true} <br>
 
-For private request send `Authentication: Bearer <TOKEN>` header, where TOKEN is a string returned in /login request payload.<br>
-**Note! Request can return wrong error or status code**
+**Error responses:** <br>
+Error response can return custom error such as `Not Found (404), Bad Request (400), Unauthorized (401)` or mongo error `ValidationError (400), CastError (400)` <br>
+`ValidationError` - required field is missing or the value is not valid <br>
+`CastError` - the record in DB is not found. Thrown when `:id` in url is not valid <br>
+**Mongo errors will be converted into custom errors in future**
 
-### Create user using this command 
-`curl -X POST -d "email=test&password=test" http://localhost:7000/api/users`
+For private request send `Authentication: Bearer <TOKEN>` header, where TOKEN is a string returned in /login request payload.<br>
+
+### Create users using this command (available roles: 'admin', 'coordinator', 'doctor')
+`curl -X POST -d "email=test&password=test&role=admin" http://localhost:7000/api/users`
 
