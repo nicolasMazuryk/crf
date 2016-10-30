@@ -5,7 +5,7 @@
 const
   passport = require('passport'),
   User = require('../models/user'),
-  wrap = require('co-express'),
+  co = require('co'),
   BearerStrategy = require('passport-http-bearer').Strategy,
   LocalStrategy = require('passport-local').Strategy,
   errors = require('../error/')
@@ -41,7 +41,7 @@ const bearer = function* (token, done) {
   }
 }
 
-passport.use('local', new LocalStrategy({ usernameField: 'phone' }, wrap(local)))
-passport.use('bearer', new BearerStrategy(wrap(bearer)))
+passport.use('local', new LocalStrategy({ usernameField: 'phone' }, co.wrap(local)))
+passport.use('bearer', new BearerStrategy(co.wrap(bearer)))
 
 module.exports = passport
