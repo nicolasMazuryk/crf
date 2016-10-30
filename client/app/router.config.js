@@ -41,6 +41,8 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             url: '/',
             views: {
                 'header': {
+                    controller: 'header.controller',
+                    controllerAs: 'vm',
                     /* @ngInject */
                     templateProvider: ($templateCache) => $templateCache.get('header.html')
                 },

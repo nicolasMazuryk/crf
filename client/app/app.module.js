@@ -4,6 +4,7 @@ import './shared/auth/auth.module';
 import './shared/storage/storage.module';
 import './shared/plugins/plugins.module';
 import './components/homepage/homepage.module';
+import './components/header/header.module';
 import './components/login/login.module';
 import config from './../../config.json';
 
@@ -16,6 +17,7 @@ angular
         'storage',
         'templates',
         'homepage',
+        'header',
         'login'
     ])
     .constant('config', config)
