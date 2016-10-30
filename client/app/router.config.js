@@ -30,16 +30,30 @@ function routerConfig($stateProvider, $urlRouterProvider) {
             /* @ngInject */
             templateProvider: ($templateCache) => $templateCache.get('404.html')
         })
+
         .state('app.private', {
             abstract: true,
             /* @ngInject */
             templateProvider: ($templateCache) => $templateCache.get('layout.html')
+
         })
         .state('app.private.homepage', {
             url: '/',
-            controller: 'homepage.controller',
-            controllerAs: 'vm',
-            /* @ngInject */
-            templateProvider: ($templateCache) => $templateCache.get('homepage.html')
+            views: {
+                'header': {
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('header.html')
+                },
+                'navigation': {
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('navigation.html')
+                },
+                "": {
+                    controller: 'homepage.controller',
+                    controllerAs: 'vm',
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('homepage.html')
+                }
+            }
         });
 }

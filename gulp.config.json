@@ -1,6 +1,8 @@
 {
   "templateCache": [
     "client/app/components/layout/layout.html",
+    "client/app/components/header/header.html",
+    "client/app/components/navigation/navigation.html",
     "client/app/components/homepage/homepage.html",
     "client/app/components/login/login.html",
     "client/app/components/404/404.html"
@@ -31,7 +33,6 @@
 
   "css": {
     "vendor": [
-      "node_modules/materialize-css/dist/css/materialize.css"
     ],
     "dest": "./public/styles"
   },
@@ -60,7 +61,6 @@
 
   "font": {
     "src": [
-      "node_modules/materialize-css/dist/fonts/**/*",
       "client/assets/fonts/**/*"
     ],
     "dest": "./public/fonts"
