@@ -12,7 +12,7 @@ const
   path = require('path'),
   passport = require('./server/controllers/auth'),
 
-  APIRoute = require('./server/routers/api'),
+  APIRoute = require('./server/routers/api/'),
   authRoute = require('./server/routers/auth')
 
 const env = process.env.NODE_ENV || 'development'

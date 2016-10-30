@@ -13,6 +13,10 @@ GET /api/researches/:id -> {payload: Research} <br>
 POST /api/researches {name} -> {payload: Research} <br>
 DELETE /api/researches/:id -> {payload: Research} <br>
 
+GET /api/researches/:rid/clinics -> {payload: [Clinic]} <br>
+POST /api/researches/:rid/clinics {name} -> {payload: Clinic} <br>
+DELETE /api/researches/:rid/clinics/:cid -> {payload: Clinic} <br>
+
 **Private:** <br>
 GET /logout -> {payload: true} <br>
 

@@ -11,7 +11,7 @@ const Research = new Schema({
   name: { type: String, required: true },
   date_start: { type: Date, default: Date.now() },
   date_end: Date,
-  medical_centers: { type: [Schema.Types.ObjectId], default: [] }
+  clinics: { type: [Schema.Types.ObjectId], default: [] }
 
 })
 
