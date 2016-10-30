@@ -18,7 +18,7 @@ exports.getUsers = function* (req, res, next) {
 
 exports.postUser = function* (req, res, next) {
   try {
-    const user = yield User.findOne({ email: req.body.email }, '-salt -password -token')
+    const user = yield User.findOne({ phone: req.body.phone }, '-salt -password -token')
     if (user) {
       return next(new errors.BadRequest('User already exists'))
     }

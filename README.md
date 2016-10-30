@@ -4,9 +4,9 @@ CRF for Biofarma
 ### Available requests
 **Public:** <br/>
 GET /api/users -> {payload: [Users]} <br>
-POST /api/users {email, password, role} -> {payload: User} <br>
+POST /api/users {phone, password, role, name} -> {payload: User} <br>
 DELETE /api/users/:id -> {payload: User} <br>
-POST /login {email, password} -> {payload: { token, role } } <br>
+POST /login {phone, password} -> {payload: { token, role } } <br>
 
 GET /api/researches -> {payload: [Research]} <br>
 GET /api/researches/:id -> {payload: Research} <br>
