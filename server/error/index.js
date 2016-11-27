@@ -2,7 +2,7 @@
  * Created by supervlad on 10/26/16.
  */
 
-const checkError = (err) => {
+const handleError = (err) => {
   switch (err.name) {
     case 'ValidationError':
     case 'CastError':
@@ -10,7 +10,7 @@ const checkError = (err) => {
     case 'TokenExpiredError':
       return new Unauthorized(`${err.message}. Expired at ${err.expiredAt}`)
     default:
-      return false
+      return err
   }
 }
 
@@ -44,4 +44,4 @@ function Unauthorized (message) {
 
 Unauthorized.prototype = Object.create(Error.prototype)
 
-module.exports = { Unauthorized, NotFound, BadRequest, checkError }
+module.exports = { Unauthorized, NotFound, BadRequest, handleError }

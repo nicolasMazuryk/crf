@@ -11,7 +11,7 @@ const
   config = require('./config'),
   path = require('path'),
   passport = require('./server/controllers/auth'),
-  checkError = require('./server/error').checkError,
+  handleError = require('./server/error').handleError,
   APIRoute = require('./server/routers/api/'),
   authRoute = require('./server/routers/auth')
 
@@ -23,6 +23,8 @@ mongoose.Promise = global.Promise
 app.use(express.static(path.join(__dirname, config[env].public)))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json({extended: true}))
+
+// log requests in console, errors to ./server/log/error.log
 app.use(winstonRequestLogger.create(logger, {
   'date': ':date',
   'statusCode': ':statusCode',
@@ -30,16 +32,18 @@ app.use(winstonRequestLogger.create(logger, {
   'url': ':url[pathname]',
   'responseTime': ':responseTime ms'
 }))
+
 app.use(passport.initialize())
+
 app.use(authRoute(passport))
 app.use('/api/', APIRoute)
+
 app.use((err, req, res, next) => {
-  if (!err.status) {
-    logger.error(err)
-  }
-  const error = checkError(err) || err
-  res.status(err.status).json({ error })
+  const error = handleError(err)
+  logger.debug(err)
+  res.status(err.status || 500).json({ error })
 })
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })

@@ -3,10 +3,14 @@
  */
 
 const winston = require('winston')
+const debug = process.argv.includes('debug')
 
-module.exports = new winston.Logger({
+const logger = new winston.Logger({
   transports: [
-    new winston.transports.Console(),
+    new winston.transports.Console({
+      colorize: true,
+      level: 'info'
+    }),
     new winston.transports.File({
       name: 'error-file',
       filename: './server/log/error.log',
@@ -15,3 +19,9 @@ module.exports = new winston.Logger({
   ]
 })
 
+debug && logger.add(new winston.transports.Console({
+  colorize: true,
+  level: 'debug'
+}))
+
+module.exports = logger
