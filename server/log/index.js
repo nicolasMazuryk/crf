@@ -14,7 +14,7 @@ const transports = [
     name: 'error-file',
     filename: './server/log/error.log',
     level: 'error'
-  }),
+  })
 ]
 
 debug && transports.push(new winston.transports.File({
