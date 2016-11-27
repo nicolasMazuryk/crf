@@ -11,7 +11,7 @@ const
   config = require('./config'),
   path = require('path'),
   passport = require('./server/controllers/auth'),
-
+  checkError = require('./server/error').checkError,
   APIRoute = require('./server/routers/api/'),
   authRoute = require('./server/routers/auth')
 
@@ -34,14 +34,12 @@ app.use(passport.initialize())
 app.use(authRoute(passport))
 app.use('/api/', APIRoute)
 app.use((err, req, res, next) => {
-  const isMongoError = ['ValidationError', 'CastError'].includes(err.name)
-  isMongoError && (err.status = 400)
   if (!err.status) {
     logger.error(err)
   }
-  res.status(err.status || 500).json({ error: err })
+  const error = checkError(err) || err
+  res.status(err.status).json({ error })
 })
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
