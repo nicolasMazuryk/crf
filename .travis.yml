@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 6.2.2
+notifications:
+   email:
+     recipients:
+       - crf.biofarma.ua@gmail.com
+     on_success: always
+     on_failure: always
+branches:
+  only:
+    - master
+services:
+  - mongodb
