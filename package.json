@@ -4,8 +4,9 @@
   "description": "biofarma patient statistics",
   "main": "server.js",
   "scripts": {
-    "start": "./node_modules/.bin/cross-env NODE_ENV=production node server",
-    "dev": "./node_modules/.bin/cross-env NODE_ENV=development nodemon server",
+    "start": "./node_modules/.bin/cross-env NODE_ENV=production node server.js",
+    "debug": "./node_modules/.bin/cross-env NODE_ENV=development node server.js debug",
+    "dev": "./node_modules/.bin/cross-env NODE_ENV=development nodemon server.js",
     "build:dev": "./node_modules/.bin/gulp",
     "build:prod": "./node_modules/.bin/gulp --production",
     "test": "echo \"Error: no test specified\" && exit 1"

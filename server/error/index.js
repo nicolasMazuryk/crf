@@ -2,6 +2,18 @@
  * Created by supervlad on 10/26/16.
  */
 
+const handleError = (err) => {
+  switch (err.name) {
+    case 'ValidationError':
+    case 'CastError':
+      return new BadRequest(`${err.message}. ${err.errors.name.message}`)
+    case 'TokenExpiredError':
+      return new Unauthorized(`${err.message}. Expired at ${err.expiredAt}`)
+    default:
+      return err
+  }
+}
+
 function NotFound (message) {
   this.name = 'Not Found'
   this.status = 404
@@ -32,4 +44,4 @@ function Unauthorized (message) {
 
 Unauthorized.prototype = Object.create(Error.prototype)
 
-module.exports = { Unauthorized, NotFound, BadRequest }
+module.exports = { Unauthorized, NotFound, BadRequest, handleError }
