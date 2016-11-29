@@ -2,16 +2,22 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>CRF</title>
-    <link rel="stylesheet" href="./styles/build.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>crf</title>
+
+    <!-- build:css styles/build.css -->
     <link rel="stylesheet" href="./styles/vendor.css">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <!-- endbuild -->
 </head>
 <body>
 
     <div ui-view class="global-wrapper"></div>
 
-    <script src="./js/vendor.js"></script>
-    <script src="./js/templates.js"></script>
-    <script src="./js/build.js"></script>
+<!-- build:js js/build.js -->
+<script src="./js/vendor.js"></script>
+<script src="./js/templates.js"></script>
+<script src="./js/bundle.js"></script>
+<!-- endbuild -->
 </body>
 </html>

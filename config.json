@@ -1,9 +1,10 @@
 {
   "development": {
     "host": "http://localhost",
-    "port": "6000",
+    "port": "7000",
     "public": "./public",
     "app": "./app",
     "db_url": "mongodb://localhost/crf"
-  }
+  },
+  "production": {}
 }
