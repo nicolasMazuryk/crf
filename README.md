@@ -1,6 +1,8 @@
 # CRF
 CRF for Biofarma
 
+[![Build Status](https://travis-ci.org/staticbass/crf.svg?branch=master)](https://travis-ci.org/staticbass/crf)
+
 ### Available requests
 **Public:** <br/>
 GET /api/users -> {payload: [Users]} <br>
