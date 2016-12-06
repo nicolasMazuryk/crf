@@ -7,20 +7,32 @@
         <form name="loginForm" ng-submit="vm.login()" class="col s12">
             <div class="input-field col s12">
                 <i class="material-icons prefix">call</i>
-                <input id="user_email"
-                       type="text"
+                <input id="user_phone"
+                       name="phone"
+                       type="tel"
                        class="validate"
-                       ng-model="vm.user.email">
-                <label for="user_email">Номер телефона</label>
+                       required
+                       ng-pattern="/^\d+$/"
+                       ng-model="vm.user.phone">
+                <label for="user_phone">Номер телефона</label>
             </div>
             <div class="input-field col s12">
                 <i class="material-icons prefix">vpn_key</i>
                 <input id="user_pass"
+                       name="password"
                        type="password"
                        class="validate"
+                       required
                        ng-model="vm.user.password">
                 <label for="user_pass">Пароль</label>
             </div>
+
+            <div ng-messages="loginForm.phone.$error || loginForm.password.$error"
+                 ng-if="loginForm.$submitted">
+                <div ng-message="required">Заполните поле</div>
+                <div ng-message="pattern">Введите корректный номер телефона</div>
+            </div>
+
             <button type="submit" class="login-submit waves-effect waves-light btn btn-large">Войти</button>
         </form>
     </div>

@@ -14,7 +14,6 @@ class Auth {
             this.$rootScope.User = angular.copy(user)
             this.StorageService.set('Authorization', token)
             this.$state.go('app.private.homepage')
-console.log(this.$rootScope.User)
         }).catch(e => console.log(e))
     }
 

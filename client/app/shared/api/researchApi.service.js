@@ -1,6 +1,6 @@
 class ResearchApiService {
     constructor($resource, API) {
-        this.Research = $resource(`${API}/researches/:id`, {id: '@id'})
+        this.Research = $resource(`${API.URL}/api/researches/:id`, {id: '@id'})
     }
 
     getOne(id) {

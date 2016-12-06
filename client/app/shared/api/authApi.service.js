@@ -1,10 +1,7 @@
 
 class AuthApiService {
     constructor($resource, API, StorageService) {
-        const
-            token = StorageService.get('Authorization'),
-            authHeader = {Authorization: `Bearer ${token}`};
-
+        this.StorageService = StorageService
         this.Auth = $resource(null, {}, {
             'login': {
                 url: `${API.URL}/login`,
@@ -13,9 +10,17 @@ class AuthApiService {
             'logout': {
                 url: `${API.URL}/logout`,
                 method: 'GET',
-                headers: authHeader
+                headers: this.setHeaders
             }
         });
+    }
+
+    setHeaders() {
+        const
+            token = this.StorageService.get('Authorization'),
+            authHeader = {Authorization: `Bearer ${token}`}
+        debugger
+        return authHeader
     }
 
     login(user) {

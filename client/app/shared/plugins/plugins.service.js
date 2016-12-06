@@ -1,14 +1,18 @@
 
 class pluginsService {
-    constructor() {
+    constructor($rootScope) {
+        this.$rootScope = $rootScope
     }
 
     init() {
-        $(document).ready(function() {
-            $('select').material_select();
-        });
-    }
+        $('select').material_select();
 
+        this.$rootScope.$on('update:select', (e) => {
+            $('select').material_select();
+        })
+    }
 }
+
+pluginsService.$inject = ['$rootScope']
 
 export default pluginsService;

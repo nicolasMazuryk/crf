@@ -2,7 +2,7 @@
 class loginController {
     constructor(Auth) {
         this.Auth = Auth;
-        this.user = {email: null, password: null};
+        this.user = {phone: null, password: null};
     }
 
     login() {
