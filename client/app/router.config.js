@@ -10,28 +10,52 @@ function routerConfig($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/404');
 
     $stateProvider
-        .state('default', {
+        .state('app', {
             abstract: true,
-            /* @ngInject */
-            templateProvider: ($templateCache) => $templateCache.get('layout.html')
+            template: '<ui-view></ui-view>'
         })
-        .state('default.homepage', {
-            url: '/',
-            controller: 'homepage.controller',
-            controllerAs: 'vm',
-            /* @ngInject */
-            templateProvider: ($templateCache) => $templateCache.get('homepage.html')
+        .state('app.public', {
+            abstract: true,
+            template: '<ui-view></ui-view>'
         })
-        .state('default.login', {
+        .state('app.public.login', {
             url: '/login',
             controller: 'login.controller',
             controllerAs: 'vm',
             /* @ngInject */
             templateProvider: ($templateCache) => $templateCache.get('login.html')
         })
-        .state('default.404', {
+        .state('app.public.404', {
             url: '/404',
             /* @ngInject */
             templateProvider: ($templateCache) => $templateCache.get('404.html')
+        })
+
+        .state('app.private', {
+            abstract: true,
+            /* @ngInject */
+            templateProvider: ($templateCache) => $templateCache.get('layout.html')
+
+        })
+        .state('app.private.homepage', {
+            url: '/',
+            views: {
+                'header': {
+                    controller: 'header.controller',
+                    controllerAs: 'vm',
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('header.html')
+                },
+                'navigation': {
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('navigation.html')
+                },
+                "": {
+                    controller: 'homepage.controller',
+                    controllerAs: 'vm',
+                    /* @ngInject */
+                    templateProvider: ($templateCache) => $templateCache.get('homepage.html')
+                }
+            }
         });
 }

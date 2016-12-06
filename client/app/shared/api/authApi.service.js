@@ -1,10 +1,7 @@
 
 class AuthApiService {
-    constructor($resource, API, CookieService) {
-        const
-            token = CookieService.get('Authorization'),
-            authHeader = {Authentication: `Bearer ${token}`};
-
+    constructor($resource, API, StorageService) {
+        this.StorageService = StorageService
         this.Auth = $resource(null, {}, {
             'login': {
                 url: `${API.URL}/login`,
@@ -13,9 +10,17 @@ class AuthApiService {
             'logout': {
                 url: `${API.URL}/logout`,
                 method: 'GET',
-                headers: authHeader
+                headers: this.setHeaders
             }
         });
+    }
+
+    setHeaders() {
+        const
+            token = this.StorageService.get('Authorization'),
+            authHeader = {Authorization: `Bearer ${token}`}
+        debugger
+        return authHeader
     }
 
     login(user) {
@@ -27,6 +32,6 @@ class AuthApiService {
     }
 }
 
-AuthApiService.$inject = ['$resource', 'API', 'CookieService'];
+AuthApiService.$inject = ['$resource', 'API', 'StorageService'];
 
 export default AuthApiService;

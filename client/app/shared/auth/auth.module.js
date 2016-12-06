@@ -1,7 +1,6 @@
 import ngResource from 'angular-resource';
-import apiConstants from '../api/api.constants';
-import AuthApiService from './authApi.service';
+import Auth from './auth.service.js';
 
 angular
-    .module('auth', [ngResource])
-    .service('AuthApiService', AuthApiService);
+    .module('authorization', [ngResource])
+    .service('Auth', Auth);

@@ -136,6 +136,7 @@ gulp.task('browser-sync', () => {
             baseDir: './public',
             middleware: [ historyApiFallback() ]
         },
+        port: '3000',
         logLevel: 'info'
     });
 

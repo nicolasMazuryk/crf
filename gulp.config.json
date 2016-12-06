@@ -1,10 +1,13 @@
 {
   "templateCache": [
     "client/app/components/layout/layout.html",
+    "client/app/components/header/header.html",
+    "client/app/components/navigation/navigation.html",
     "client/app/components/homepage/homepage.html",
     "client/app/components/login/login.html",
     "client/app/components/404/404.html"
   ],
+
   "scripts": {
     "entry": "./client/app/app.module.js",
     "src": [
@@ -16,28 +19,32 @@
       "node_modules/angular/angular.js",
       "node_modules/angular-ui-router/release/angular-ui-router.js",
       "node_modules/angular-resource/angular-resource.js",
+      "node_modules/angular-messages/angular-messages.js",
       "node_modules/materialize-css/dist/js/materialize.js"
     ],
     "dest": "./public/js"
   },
+
   "html": {
     "src": "client/*.html",
     "templates": "client/app/**/*.html",
     "dest_templates": "public/js",
     "dest": "./public"
   },
+
   "css": {
     "vendor": [
-      "node_modules/materialize-css/dist/css/materialize.css"
     ],
     "dest": "./public/styles"
   },
+
   "sass": {
     "src": [
       "client/assets/styles/styles.scss"
     ],
     "dest": "./public/styles"
   },
+
   "img": {
     "src": [
       "client/assets/images/**/*",
@@ -52,13 +59,14 @@
     },
     "dest": "./public/images"
   },
+
   "font": {
     "src": [
-      "node_modules/materialize-css/dist/fonts/**/*",
       "client/assets/fonts/**/*"
     ],
     "dest": "./public/fonts"
   },
+
   "clean": [
     "./public/js/vendor.js",
     "./public/js/templates.js",

@@ -1,3 +1,5 @@
+// materialize-css
+@import './materialize/sass/materialize';
 // base
 @import './base/vars';
 @import './base/base';
@@ -5,6 +7,11 @@
 // utils
 @import './utils/sprite';
 @import './utils/icons';
+@import './utils/helpers';
 
 // modules
+@import 'modules/login';
 @import 'modules/header';
+@import 'modules/navigation';
+@import 'modules/patient';
+@import 'modules/toast';
