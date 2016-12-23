@@ -18,9 +18,7 @@ export class AuthService {
       'http://localhost:7000/login',
       JSON.stringify(user)
       )
-      .map(res => {
-        res.json()
-      })
+      .map(res => res.json())
       .map(res => {
         if (res.payload.token) {
           localStorage.setItem('Authorization', res.payload.token)

@@ -4,10 +4,11 @@
       <img src="assets/images/logo.png" class="login-logo"/>
       <div class="login-title">Авторизация</div>
     </div>
-    <form (onSubmit)="onSubmit(user)" #loginForm="ngForm" class="col s12">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="col s12">
       <div class="input-field col s12">
         <i class="material-icons prefix">call</i>
-        <input #user_phone
+        <input
+               id="user_phone"
                name="phone"
                type="tel"
                class="validate"
@@ -22,6 +23,7 @@
                type="password"
                class="validate"
                required
+               [(ngModel)]="user.password"
                >
         <label for="user_pass">Пароль</label>
       </div>

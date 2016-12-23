@@ -3,16 +3,16 @@ import {Router} from "@angular/router";
 import {AuthService} from "../services/auth/auth.service";
 
 @Component({
-  selector: 'app-login',
+  selector: 'crf-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  user
+  user = {};
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  onSubmit(user) {
+  onSubmit() {
     this.authService.login(this.user).subscribe(result => {
       if (result) {
         this.router.navigate([''])
